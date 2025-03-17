@@ -9,12 +9,15 @@ import java.time.Instant;
 
 @Entity
 @Data
+@Table(name = "sensor_data")
 public class SensorData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(name = "timestamp")
     private Instant timestamp = Instant.now();
-    private String data; // Almacenará el JSON de datos del sensor
+    private String data;
 
     @ManyToOne
     @JoinColumn(name = "sensor_id")

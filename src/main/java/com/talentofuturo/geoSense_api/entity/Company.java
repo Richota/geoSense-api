@@ -7,12 +7,17 @@ import java.util.UUID;
 
 @Entity
 @Data
+@Table(name = "companies")
 public class Company {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String CompanyName;
-    private String CompanyApiKey = UUID.randomUUID().toString();
+    
+    @Column(name = "companyName")
+    private String companyName;
+    
+    @Column(name = "companyApiKey")
+    private String companyApiKey = UUID.randomUUID().toString();
 
     @ManyToOne
     @JoinColumn(name = "Admin_username")
