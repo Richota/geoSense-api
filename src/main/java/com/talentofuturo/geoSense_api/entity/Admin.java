@@ -19,8 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Admin {
 
-
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, name = "username")
     private String username;
 
     @JsonIgnore
