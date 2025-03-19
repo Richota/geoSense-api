@@ -1,4 +1,4 @@
-package com.talentofuturo.geoSense_api.Service;
+package com.talentofuturo.geoSense_api.service;
 
 import com.talentofuturo.geoSense_api.entity.Admin;
 import com.talentofuturo.geoSense_api.entity.Company;

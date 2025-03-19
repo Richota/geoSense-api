@@ -1,8 +1,9 @@
 package com.talentofuturo.geoSense_api.controller;
 
 
-import com.talentofuturo.geoSense_api.Service.AdminService;
 import com.talentofuturo.geoSense_api.entity.Company;
+import com.talentofuturo.geoSense_api.service.AdminService;
+
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
