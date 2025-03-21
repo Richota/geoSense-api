@@ -18,6 +18,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Admin {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false, unique = true, name = "username")
     private String username;
