@@ -12,19 +12,22 @@ import com.talentofuturo.geoSense_api.repository.LocationRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of location management operations.
+ */
 @Service
-public class LocationService {
+@AllArgsConstructor
+public class LocationService implements ILocationService {
+    private final LocationRepository locationRepository;
 
-    @Autowired
-    private LocationRepository locationRepository;
-
+    @Override
     public List<LocationDTO> getAllLocations() {
-        return locationRepository.findAll()
-                .stream()
+        return locationRepository.findAll().stream()
                 .map(LocationMapper::mapLocation)
                 .collect(Collectors.toList());
     }
 
+    @Override
     public LocationDTO createLocation(LocationDTO locationDTO) {
         Location location = LocationMapper.mapDTO(locationDTO);
         Location savedLocation = locationRepository.save(location);

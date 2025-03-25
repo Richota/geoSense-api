@@ -12,19 +12,22 @@ import com.talentofuturo.geoSense_api.repository.SensorRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of sensor management operations.
+ */
 @Service
-public class SensorService {
+@AllArgsConstructor
+public class SensorService implements ISensorService {
+    private final SensorRepository sensorRepository;
 
-    @Autowired
-    private SensorRepository sensorRepository;
-
+    @Override
     public List<SensorDTO> getAllSensors() {
-        return sensorRepository.findAll()
-                .stream()
+        return sensorRepository.findAll().stream()
                 .map(SensorMapper::mapSensor)
                 .collect(Collectors.toList());
     }
 
+    @Override
     public SensorDTO createSensor(SensorDTO sensorDTO) {
         Sensor sensor = SensorMapper.mapDTO(sensorDTO);
         Sensor savedSensor = sensorRepository.save(sensor);

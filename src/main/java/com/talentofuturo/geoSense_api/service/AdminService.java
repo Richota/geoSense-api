@@ -9,9 +9,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Implementation of administrative operations for company management.
+ */
 @Service
 @AllArgsConstructor
-public class AdminService {
+public class AdminService implements IAdminService {
     private final AdminRepository adminRepository;
     private final CompanyRepository companyRepository;
 

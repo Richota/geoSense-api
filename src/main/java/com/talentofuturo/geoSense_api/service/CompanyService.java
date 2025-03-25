@@ -12,19 +12,22 @@ import com.talentofuturo.geoSense_api.repository.CompanyRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of company management operations.
+ */
 @Service
-public class CompanyService {
+@AllArgsConstructor
+public class CompanyService implements ICompanyService {
+    private final CompanyRepository companyRepository;
 
-    @Autowired
-    private CompanyRepository companyRepository;
-
+    @Override
     public List<CompanyDTO> getAllCompanies() {
-        return companyRepository.findAll()
-                .stream()
+        return companyRepository.findAll().stream()
                 .map(CompanyMapper::mapCompany)
                 .collect(Collectors.toList());
     }
 
+    @Override
     public CompanyDTO createCompany(CompanyDTO companyDTO) {
         Company company = CompanyMapper.mapDTO(companyDTO);
         Company savedCompany = companyRepository.save(company);
