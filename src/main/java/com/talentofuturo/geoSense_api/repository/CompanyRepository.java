@@ -4,7 +4,6 @@ import com.talentofuturo.geoSense_api.entity.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Repository interface for Company entity operations.

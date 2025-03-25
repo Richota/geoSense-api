@@ -1,13 +1,14 @@
 package com.talentofuturo.geoSense_api.service;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.talentofuturo.geoSense_api.dto.SensorDTO;
 import com.talentofuturo.geoSense_api.entity.Sensor;
 import com.talentofuturo.geoSense_api.mapper.SensorMapper;
 import com.talentofuturo.geoSense_api.repository.SensorRepository;
+import com.talentofuturo.geoSense_api.service.interfaces.ISensorService;
+
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,18 +20,19 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class SensorService implements ISensorService {
     private final SensorRepository sensorRepository;
+    private final SensorMapper sensorMapper;  // Add this field
 
     @Override
     public List<SensorDTO> getAllSensors() {
         return sensorRepository.findAll().stream()
-                .map(SensorMapper::mapSensor)
+                .map(sensorMapper::mapSensor)  // Use instance method
                 .collect(Collectors.toList());
     }
 
     @Override
     public SensorDTO createSensor(SensorDTO sensorDTO) {
-        Sensor sensor = SensorMapper.mapDTO(sensorDTO);
+        Sensor sensor = sensorMapper.mapDTO(sensorDTO);  // Use instance method
         Sensor savedSensor = sensorRepository.save(sensor);
-        return SensorMapper.mapSensor(savedSensor);
+        return sensorMapper.mapSensor(savedSensor);  // Use instance method
     }
 }

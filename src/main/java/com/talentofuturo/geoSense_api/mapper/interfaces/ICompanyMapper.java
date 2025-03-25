@@ -1,3 +1,8 @@
+package com.talentofuturo.geoSense_api.mapper.interfaces;
+
+import com.talentofuturo.geoSense_api.dto.CompanyDTO;
+import com.talentofuturo.geoSense_api.entity.Company;
+
 /**
  * Interface defining mapping operations between Company entities and DTOs.
  */

@@ -1,3 +1,9 @@
+package com.talentofuturo.geoSense_api.controller.interfaces;
+
+import java.util.List;
+
+import com.talentofuturo.geoSense_api.dto.LocationDTO;
+
 /**
  * Defines the contract for location management operations through REST endpoints.
  * Handles basic CRUD operations for locations in the system.

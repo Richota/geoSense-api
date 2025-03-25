@@ -4,11 +4,12 @@ import com.talentofuturo.geoSense_api.entity.Admin;
 import com.talentofuturo.geoSense_api.entity.Company;
 import com.talentofuturo.geoSense_api.repository.AdminRepository;
 import com.talentofuturo.geoSense_api.repository.CompanyRepository;
+import com.talentofuturo.geoSense_api.service.interfaces.IAdminService;
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 /**
  * Implementation of administrative operations for company management.
  */

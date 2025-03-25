@@ -1,3 +1,8 @@
+package com.talentofuturo.geoSense_api.mapper.interfaces;
+
+import com.talentofuturo.geoSense_api.dto.LocationDTO;
+import com.talentofuturo.geoSense_api.entity.Location;
+
 /**
  * Interface defining mapping operations between Location entities and DTOs.
  */

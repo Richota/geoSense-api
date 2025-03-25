@@ -1,4 +1,4 @@
-package com.talentofuturo.geoSense_api.controller;
+package com.talentofuturo.geoSense_api.controller.interfaces;
 
 import com.talentofuturo.geoSense_api.dto.CompanyDTO;
 import java.util.List;

@@ -1,3 +1,9 @@
+package com.talentofuturo.geoSense_api.controller.interfaces;
+
+import java.util.List;
+
+import com.talentofuturo.geoSense_api.dto.SensorDTO;
+
 /**
  * Defines the contract for sensor management operations through REST endpoints.
  * Handles basic CRUD operations for sensors in the system.

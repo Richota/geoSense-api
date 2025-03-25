@@ -1,3 +1,9 @@
+package com.talentofuturo.geoSense_api.service.interfaces;
+
+import java.util.List;
+
+import com.talentofuturo.geoSense_api.dto.CompanyDTO;
+
 /**
  * Interface defining operations for company management.
  */

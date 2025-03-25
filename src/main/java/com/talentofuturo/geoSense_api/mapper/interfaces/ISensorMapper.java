@@ -1,3 +1,8 @@
+package com.talentofuturo.geoSense_api.mapper.interfaces;
+
+import com.talentofuturo.geoSense_api.dto.SensorDTO;
+import com.talentofuturo.geoSense_api.entity.Sensor;
+
 /**
  * Interface defining mapping operations between Sensor entities and DTOs.
  */
