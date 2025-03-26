@@ -1,5 +1,6 @@
 package com.talentofuturo.geoSense_api.controller;
 
+import com.talentofuturo.geoSense_api.controller.interfaces.ILocationController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,9 +9,13 @@ import com.talentofuturo.geoSense_api.service.LocationService;
 
 import java.util.List;
 
+/**
+ * REST Controller implementation for location management operations.
+ * Provides endpoints for creating and retrieving locations.
+ */
 @RestController
 @RequestMapping("/api/v1/locations")
-public class LocationController {
+public class LocationController implements ILocationController {
 
     @Autowired
     private LocationService locationService;

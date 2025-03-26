@@ -1,31 +1,42 @@
 package com.talentofuturo.geoSense_api.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.talentofuturo.geoSense_api.dto.SensorDTO;
 import com.talentofuturo.geoSense_api.entity.Sensor;
+import com.talentofuturo.geoSense_api.mapper.interfaces.ISensorMapper;
 
-public class SensorMapper {
-
-    public static SensorDTO mapSensor(Sensor sensor) {
+/**
+ * Implementation of Sensor mapping operations.
+ * Handles conversion between Sensor entities and DTOs.
+ */
+@Component
+public class SensorMapper implements ISensorMapper {
+    // Change methods from static to instance methods
+    public SensorDTO mapSensor(Sensor sensor) {
         if (sensor == null) {
             return null;
         }
 
         return new SensorDTO(
-        		sensor.getId(),
-        		sensor.getSensorName(),
-        		sensor.getSensorCategory(),
-        		sensor.getSensorMeta()
-        		); 
+                sensor.getId(),
+                sensor.getSensorName(),
+                sensor.getSensorCategory(),
+                sensor.getSensorMeta(), null
+        );
     }
 
-    public static Sensor mapDTO(SensorDTO sensorDTO) {
+    /**
+     * {@inheritDoc}
+     */
+    public Sensor mapDTO(SensorDTO sensorDTO) {
         if (sensorDTO == null) {
             return null;
         }
 
         Sensor sensor = new Sensor();
         sensor.setSensorName(sensorDTO.getSensorName());
-        sensor.setSensorCategory(sensorDTO.getSensorCategory());
+        sensor.setSensorCategory(sensorDTO.getSensorType());
         sensor.setSensorMeta(sensorDTO.getSensorMeta());
         return sensor;
     }
