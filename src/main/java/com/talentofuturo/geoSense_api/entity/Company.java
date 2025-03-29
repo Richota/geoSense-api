@@ -24,6 +24,7 @@ public class Company {
     /**
      * Name of the company
      */
+    @SuppressWarnings("deprecation")
     @Column(name = "companyName")
     @NotNull
     private String CompanyName;
@@ -32,6 +33,7 @@ public class Company {
      * Unique API key for company authentication
      * Automatically generated using UUID
      */
+    @SuppressWarnings("deprecation")
     @Column(name = "companyApiKey")
     @NotNull
     private String CompanyApiKey = UUID.randomUUID().toString();

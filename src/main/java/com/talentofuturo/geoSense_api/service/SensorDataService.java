@@ -1,5 +1,6 @@
 package com.talentofuturo.geoSense_api.service;
 
+import java.time.Instant;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +13,17 @@ import com.talentofuturo.geoSense_api.entity.Sensor;
 import com.talentofuturo.geoSense_api.entity.SensorData;
 import com.talentofuturo.geoSense_api.repository.SensorDataRepository;
 import com.talentofuturo.geoSense_api.repository.SensorRepository;
+import com.talentofuturo.geoSense_api.service.interfaces.ISensorDataService;
 import com.talentofuturo.geoSense_api.exception.InvalidSensorException;
 import com.talentofuturo.geoSense_api.exception.InvalidDataException;
 
+/**
+ * Implementation of ISensorDataService that handles sensor data processing and retrieval.
+ * Provides validation of measurements and manages sensor data persistence.
+ * Uses temperature range of -40°C to 85°C and humidity range of 0% to 100%.
+ */
 @Service
-public class SensorDataService {
+public class SensorDataService implements ISensorDataService {
     private static final Logger logger = LoggerFactory.getLogger(SensorDataService.class);
     private static final double MIN_TEMP = -40.0;
     private static final double MAX_TEMP = 85.0;
@@ -65,5 +72,19 @@ public class SensorDataService {
         if (measurement.getHumidity() < MIN_HUMIDITY || measurement.getHumidity() > MAX_HUMIDITY) {
             throw new InvalidDataException("Humidity out of valid range: " + measurement.getHumidity());
         }
+    }
+
+    @Override
+    public List<SensorData> getMeasurements(Long sensorId, Instant startDate, Instant endDate) {
+        if (startDate != null && endDate != null) {
+            return sensorDataRepository.findBySensorIdAndDatetimeBetween(sensorId, startDate, endDate);
+        }
+        return sensorDataRepository.findBySensorId(sensorId);
+    }
+
+    @Override
+    public SensorData getLatestMeasurement(Long sensorId) {
+        return sensorDataRepository.findFirstBySensorIdOrderByDatetimeDesc(sensorId)
+            .orElseThrow(() -> new RuntimeException("No measurements found for sensor: " + sensorId));
     }
 }
