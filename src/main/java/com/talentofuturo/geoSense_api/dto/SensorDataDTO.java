@@ -11,8 +11,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class SensorDataDTO {
-    private String api_key; // sensor_api_key para validar el sensor
-    private List<MeasurementDTO> json_data; // Lista de mediciones
+    private String sensorApiKey; 
+    private List<MeasurementDTO> measurements; 
 
     @Getter
     @Setter

@@ -1,8 +1,7 @@
 package com.talentofuturo.geoSense_api.repository;
 
-
-
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -23,5 +22,5 @@ public interface SensorRepository extends JpaRepository<Sensor, Long> {
      */
     List<Sensor> findByLocationId(Long locationId);
 
-	Object findBySensorApiKey(String apiKey);
+	Optional<Sensor> findBySensorApiKey(String apiKey);
 }
