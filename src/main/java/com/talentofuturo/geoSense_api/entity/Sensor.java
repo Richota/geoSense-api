@@ -4,6 +4,7 @@ package com.talentofuturo.geoSense_api.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 /**
  * Entity representing a Sensor device in the system.
@@ -52,4 +53,7 @@ public class Sensor {
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
+    
+    @OneToMany(mappedBy = "sensor", cascade = CascadeType.ALL)
+    private List<SensorData> sensorData; 
 }

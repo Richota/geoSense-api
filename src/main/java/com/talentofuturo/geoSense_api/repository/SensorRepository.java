@@ -22,4 +22,6 @@ public interface SensorRepository extends JpaRepository<Sensor, Long> {
      * @return List of sensors at the specified location
      */
     List<Sensor> findByLocationId(Long locationId);
+
+	Object findBySensorApiKey(String apiKey);
 }
