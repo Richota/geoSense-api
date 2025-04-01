@@ -2,6 +2,9 @@ package com.talentofuturo.geoSense_api.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.Instant;
 
 /**
@@ -10,6 +13,8 @@ import java.time.Instant;
  */
 @Entity
 @Data
+@Setter
+@Getter
 @Table(name = "sensor_data")
 public class SensorData {
     /**
@@ -18,25 +23,25 @@ public class SensorData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "temp")
+    private Double temp;
     
-    /**
-     * Value recorded by the sensor
-     */
-    @Column(name = "value")
-    private Double value;
+    @Column(name = "humidity")
+    private Double humidity;
     
     /**
      * Timestamp when the reading was taken
      */
-    @Column(name = "timestamp")
-    private Instant timestamp;
+    @Column(name = "datetime")
+    private Instant datetime; // EPOCH format
     
     /**
      * Type or unit of measurement
      */
     @Column(name = "measurement_type")
     private String measurementType;
-    
+
     /**
      * Sensor that generated this data
      * Many-to-one relationship with Sensor entity

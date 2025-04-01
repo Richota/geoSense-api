@@ -56,5 +56,6 @@ public class Admin {
      */
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     @JsonIgnore
+    @Builder.Default
     private List<Company> companies = new ArrayList<>();
 }
