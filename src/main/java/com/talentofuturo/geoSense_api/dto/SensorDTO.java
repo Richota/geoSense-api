@@ -23,7 +23,7 @@ public class SensorDTO {
     /**
      * Type or model of the sensor
      */
-    private String sensorType;
+    private String sensorCategory;
 
     /**
      * Current status of the sensor
@@ -34,4 +34,9 @@ public class SensorDTO {
      * Additional metadata about the sensor
      */
     private String sensorMeta;
+    
+    /**
+     * Additional apiKey about the sensor
+     */
+    private String sensorApiKey;
 }

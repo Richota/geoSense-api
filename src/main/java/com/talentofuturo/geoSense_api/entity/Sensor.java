@@ -34,6 +34,12 @@ public class Sensor {
     private String sensorCategory;
     
     /**
+     * Additional status or configuration for the sensor
+     */
+    @Column(name = "sensorStatus")
+    private String sensorStatus;
+    
+    /**
      * Additional metadata or configuration for the sensor
      */
     @Column(name = "sensorMeta")
