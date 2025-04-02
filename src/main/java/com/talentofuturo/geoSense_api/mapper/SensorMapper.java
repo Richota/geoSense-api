@@ -19,10 +19,12 @@ public class SensorMapper implements ISensorMapper {
         }
 
         return new SensorDTO(
-                sensor.getId(),
+        		sensor.getId(),
                 sensor.getSensorName(),
                 sensor.getSensorCategory(),
-                sensor.getSensorMeta(), null
+                sensor.getSensorStatus(),
+                sensor.getSensorMeta(),
+                sensor.getSensorApiKey()
         );
     }
 
@@ -36,7 +38,8 @@ public class SensorMapper implements ISensorMapper {
 
         Sensor sensor = new Sensor();
         sensor.setSensorName(sensorDTO.getSensorName());
-        sensor.setSensorCategory(sensorDTO.getSensorType());
+        sensor.setSensorCategory(sensorDTO.getSensorCategory());
+        sensor.setSensorStatus(sensorDTO.getSensorStatus());
         sensor.setSensorMeta(sensorDTO.getSensorMeta());
         return sensor;
     }
