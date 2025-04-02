@@ -1,9 +1,10 @@
 package com.talentofuturo.geoSense_api.repository;
 
-import com.talentofuturo.geoSense_api.entity.Admin;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
+import com.talentofuturo.geoSense_api.entity.Admin;
 
 /**
  * Repository interface for Admin entity operations.
@@ -11,10 +12,10 @@ import java.util.Optional;
  */
 public interface AdminRepository extends JpaRepository<Admin, Long> {
     /**
-     * Finds an admin by their username.
+     * Finds an admin by their Id.
      *
-     * @param username The username to search for
+     * @param id The id to search for
      * @return Optional containing the admin if found, empty Optional otherwise
      */
-    Optional<Admin> findByUsername(String username);
+    Optional<Admin> findById(Long id);
 }

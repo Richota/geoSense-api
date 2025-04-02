@@ -21,7 +21,7 @@ public interface IAdminService {
     /**
      * Updates an existing company's information.
      *
-     * @param companyId The ID of the company to update
+     * @param companyId      The ID of the company to update
      * @param companyDetails The updated company information
      * @return The updated company entity
      * @throws RuntimeException if company is not found
@@ -38,8 +38,8 @@ public interface IAdminService {
     /**
      * Retrieves all companies managed by a specific admin.
      *
-     * @param adminUsername The username of the admin
+     * @param admin The username of the admin
      * @return List of companies associated with the admin
      */
-    List<Company> getAllCompaniesByAdmin(String adminUsername);
+    List<Company> getAllCompaniesByAdmin(Long admin_id);
 }

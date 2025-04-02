@@ -1,14 +1,21 @@
 package com.talentofuturo.geoSense_api.controller.interfaces;
 
-import com.talentofuturo.geoSense_api.entity.Company;
-import org.springframework.http.ResponseEntity;
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+
+import com.talentofuturo.geoSense_api.entity.Company;
 
 /**
  * Interface defining the contract for administrative operations.
  * Provides endpoints for managing companies through REST API.
  */
 public interface IAdminController {
+
+    // ResponseEntity<String> getRuta();
+
+    ResponseEntity<String> getAdmin(Long adminId);
+
     /**
      * Creates a new company associated with the specified admin.
      *
@@ -22,7 +29,7 @@ public interface IAdminController {
      * Updates the information of an existing company.
      *
      * @param companyId The ID of the company to update
-     * @param company The updated company details
+     * @param company   The updated company details
      * @return ResponseEntity containing the updated company
      */
     ResponseEntity<Company> updateCompany(Long companyId, Company company);
@@ -38,8 +45,8 @@ public interface IAdminController {
     /**
      * Retrieves all companies associated with a specific admin.
      *
-     * @param adminUsername The username of the admin
+     * @param adminId The username of the admin
      * @return ResponseEntity containing a list of companies
      */
-    ResponseEntity<List<Company>> getAllCompanies(String adminUsername);
+    ResponseEntity<List<Company>> getAllCompanies(Long adminId);
 }
