@@ -4,19 +4,16 @@ import java.time.Instant;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 public class SensorDataDTO {
     private String sensorApiKey; 
     private List<MeasurementDTO> measurements; 
 
-    @Getter
-    @Setter
-    @AllArgsConstructor
+    @Data
     public static class MeasurementDTO {
         private Instant datetime;
         private Double temp;
