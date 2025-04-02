@@ -1,9 +1,10 @@
 package com.talentofuturo.geoSense_api.repository;
 
-import com.talentofuturo.geoSense_api.entity.Company;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import com.talentofuturo.geoSense_api.entity.Company;
 
 /**
  * Repository interface for Company entity operations.
@@ -13,8 +14,8 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     /**
      * Retrieves all companies associated with a specific admin username.
      *
-     * @param adminUsername The username of the admin
+     * @param id The id of the admin
      * @return List of companies managed by the specified admin
      */
-    List<Company> findByAdminUsername(String adminUsername);
+    List<Company> findByAdminId(Long admin_id);
 }

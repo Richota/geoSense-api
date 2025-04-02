@@ -1,15 +1,18 @@
 package com.talentofuturo.geoSense_api.service;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.talentofuturo.geoSense_api.entity.Admin;
 import com.talentofuturo.geoSense_api.entity.Company;
 import com.talentofuturo.geoSense_api.repository.AdminRepository;
 import com.talentofuturo.geoSense_api.repository.CompanyRepository;
 import com.talentofuturo.geoSense_api.service.interfaces.IAdminService;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
 /**
  * Implementation of administrative operations for company management.
  */
@@ -18,6 +21,10 @@ import java.util.List;
 public class AdminService implements IAdminService {
     private final AdminRepository adminRepository;
     private final CompanyRepository companyRepository;
+
+    public boolean existsById(Long adminId) {
+        return adminRepository.existsById(adminId);
+    }
 
     public Company createCompany(Long adminId, Company company) {
         Admin admin = adminRepository.findById(adminId)
@@ -38,8 +45,10 @@ public class AdminService implements IAdminService {
         companyRepository.deleteById(companyId);
     }
 
-    public List<Company> getAllCompaniesByAdmin(String adminUsername) {
-        return companyRepository.findByAdminUsername(adminUsername);
+    public List<Company> getAllCompaniesByAdmin(Long adminId) {
+        Admin admin = adminRepository.findById(adminId)
+                .orElseThrow(() -> new EntityNotFoundException("Admin with ID " + adminId + " not found"));
+        return admin.getCompanies();
     }
 
-    }
+}
