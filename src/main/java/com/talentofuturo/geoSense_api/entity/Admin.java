@@ -11,6 +11,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Entity representing an Administrator in the system.
+ * Administrators can manage multiple companies and have secure authentication credentials.
+ */
 @Entity
 @Table(name = "admins")
 @Data
@@ -18,21 +22,40 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Admin {
+    /**
+     * Unique identifier for the administrator
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-
-    @Column(nullable = false, unique = true)
+    /**
+     * Unique username for authentication
+     */
+    @Column(nullable = false, unique = true, name = "username")
     private String username;
 
+    /**
+     * Encrypted password for authentication
+     */
     @JsonIgnore
     @Column(nullable = false)
     private String password;
 
-    // Método para encriptar la contraseña antes de guardar
+    /**
+     * Encrypts the password using BCrypt before storing
+     * @param password The text password to be encrypted
+     */
     public void setPassword(String password) {
-
         this.password = new BCryptPasswordEncoder().encode(password);
     }
+
+    /**
+     * List of companies managed by this administrator
+     * Relationship with Company entity
+     */
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     @JsonIgnore
+    @Builder.Default
     private List<Company> companies = new ArrayList<>();
 }

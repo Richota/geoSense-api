@@ -1,8 +1,9 @@
 package com.talentofuturo.geoSense_api.controller;
 
-
-import com.talentofuturo.geoSense_api.Service.AdminService;
+import com.talentofuturo.geoSense_api.controller.interfaces.IAdminController;
 import com.talentofuturo.geoSense_api.entity.Company;
+import com.talentofuturo.geoSense_api.service.AdminService;
+
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,13 +11,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Implementation of IAdminController that handles administrative operations.
+ */
 @RestController
 @RequestMapping("/api/admins")
 @AllArgsConstructor
-public class AdminController {
+public class AdminController implements IAdminController {
     private final AdminService adminService;
 
-    // Company Endpoints
     @PostMapping("/{adminId}/companies")
     public ResponseEntity<Company> createCompany(@PathVariable Long adminId, @RequestBody Company company) {
         return new ResponseEntity<>(adminService.createCompany(adminId, company), HttpStatus.CREATED);
@@ -34,7 +37,7 @@ public class AdminController {
     }
 
     @GetMapping("/{adminId}/companies")
-    public ResponseEntity<List<Company>> getAllCompanies(@PathVariable String adminUsername) {
-        return ResponseEntity.ok(adminService.getAllCompaniesByAdmin(adminUsername));
-    }
+    public ResponseEntity<List<Company>> getAllCompanies(@PathVariable Long adminId) {
+        return ResponseEntity.status(HttpStatus.OK).body(adminService.getAllCompaniesByAdmin(adminId));
+}
 }

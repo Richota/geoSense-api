@@ -6,6 +6,23 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface CompanyRepository extends JpaRepository<Company, Long> {
-    List<Company> findByAdminUsername(String adminUsername);
+/**
+ * Repository interface for Company entity operations.
+ * Provides database access and CRUD operations for Company entities.
+ */
+public interface CompanyRepository extends JpaRepository<Company, String> {
+    /**
+     * Retrieves all companies associated with a specific admin username.
+     *
+     * @param adminUsername The username of the admin
+     * @return List of companies managed by the specified admin
+     */
+List<Company> findByAdminUsername(String adminUsername);
+
+   List<Company> findAllByAdminId(Long adminId);
+   
 }
+
+
+
+    
