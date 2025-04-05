@@ -40,6 +40,18 @@ public class Sensor {
     private String sensorStatus;
     
     /**
+     * Latitude where the sensor is
+     */
+    @Column(name = "sensorLatitude")
+    private String sensorLatitude;
+
+    /**
+     * Longitude where the sensor is
+     */
+    @Column(name = "sensorLongitude")
+    private String sensorLongitude;
+    
+    /**
      * Additional metadata or configuration for the sensor
      */
     @Column(name = "sensorMeta")

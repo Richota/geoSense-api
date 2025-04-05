@@ -23,6 +23,8 @@ public class SensorMapper implements ISensorMapper {
                 sensor.getSensorName(),
                 sensor.getSensorCategory(),
                 sensor.getSensorStatus(),
+                sensor.getSensorLatitude(),
+                sensor.getSensorLongitude(),
                 sensor.getSensorMeta(),
                 sensor.getSensorApiKey()
         );
@@ -40,6 +42,8 @@ public class SensorMapper implements ISensorMapper {
         sensor.setSensorName(sensorDTO.getSensorName());
         sensor.setSensorCategory(sensorDTO.getSensorCategory());
         sensor.setSensorStatus(sensorDTO.getSensorStatus());
+        sensor.setSensorLatitude(sensorDTO.getSensorLatitude());
+        sensor.setSensorLongitude(sensorDTO.getSensorLongitude());
         sensor.setSensorMeta(sensorDTO.getSensorMeta());
         return sensor;
     }

@@ -29,6 +29,16 @@ public class SensorDTO {
      * Current status of the sensor
      */
     private String sensorStatus;
+    
+    /**
+     * Current Latitude of the sensor
+     */
+    private String sensorLatitude;
+    
+    /**
+     * Current Longitude of the sensor
+     */
+    private String sensorLongitude;
 
     /**
      * Additional metadata about the sensor

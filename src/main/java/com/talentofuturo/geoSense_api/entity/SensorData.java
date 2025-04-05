@@ -33,7 +33,7 @@ public class SensorData {
     /**
      * Timestamp when the reading was taken
      */
-    @Column(name = "datetime")
+    @Column(name = "datetime", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private Instant datetime; // EPOCH format
     
     /**
