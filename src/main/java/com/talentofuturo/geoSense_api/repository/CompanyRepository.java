@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+
 /**
  * Repository interface for Company entity operations.
  * Provides database access and CRUD operations for Company entities.
@@ -17,4 +18,5 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
      * @return List of companies managed by the specified admin
      */
     List<Company> findByAdminUsername(String adminUsername);
+
 }

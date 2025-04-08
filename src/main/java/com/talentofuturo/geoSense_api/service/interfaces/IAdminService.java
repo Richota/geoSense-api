@@ -42,4 +42,5 @@ public interface IAdminService {
      * @return List of companies associated with the admin
      */
     List<Company> getAllCompaniesByAdmin(String adminUsername);
+    
 }

@@ -22,4 +22,12 @@ public interface ICompanyService {
      * @return The created company as DTO
      */
     CompanyDTO createCompany(CompanyDTO companyDTO);
+
+    /**
+     * Retrieves a company by its ID.
+     *
+     * @param id The ID of the company to retrieve
+     * @return The company as DTO, or null if not found
+     */
+    CompanyDTO getCompanyById(Long id);
 }

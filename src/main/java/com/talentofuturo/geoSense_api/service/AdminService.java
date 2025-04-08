@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 /**
  * Implementation of administrative operations for company management.
  */
@@ -40,6 +41,10 @@ public class AdminService implements IAdminService {
 
     public List<Company> getAllCompaniesByAdmin(String adminUsername) {
         return companyRepository.findByAdminUsername(adminUsername);
+    }
+
+    public Optional<Company> getCompanyById(Long id) {
+        return companyRepository.findById(id); // Correct usage
     }
 
     }

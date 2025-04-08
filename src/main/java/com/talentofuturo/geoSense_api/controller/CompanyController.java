@@ -4,6 +4,7 @@ import com.talentofuturo.geoSense_api.controller.interfaces.ICompanyController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.talentofuturo.geoSense_api.dto.CompanyDTO;
+import com.talentofuturo.geoSense_api.entity.Company;
 import com.talentofuturo.geoSense_api.service.CompanyService;
 import java.util.List;
 

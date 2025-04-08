@@ -18,7 +18,7 @@ public class Company {
      * Unique identifier for the company
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     /**

@@ -22,6 +22,7 @@ public class CompanyService implements ICompanyService {
     private final CompanyRepository companyRepository;
     private final CompanyMapper companyMapper;
 
+    
     @Override
     public List<CompanyDTO> getAllCompanies() {
         return companyRepository.findAll().stream()
@@ -35,4 +36,13 @@ public class CompanyService implements ICompanyService {
         Company savedCompany = companyRepository.save(company);
         return companyMapper.mapCompany(savedCompany);
     }
+
+    @Override
+    public CompanyDTO getCompanyById(Long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCompanyById'");
+    }
+
+   
 }
+
