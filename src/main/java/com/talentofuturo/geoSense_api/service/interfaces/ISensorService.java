@@ -22,4 +22,7 @@ public interface ISensorService {
      * @return The created sensor as DTO
      */
     SensorDTO createSensor(SensorDTO sensorDTO);
+
+    SensorDTO updateSensor(Long id, SensorDTO sensorDTO);
+    void deleteSensor(Long id);
 }
