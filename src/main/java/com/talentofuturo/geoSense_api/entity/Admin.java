@@ -6,16 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Entity representing an Administrator in the system.
- * Administrators can manage multiple companies and have secure authentication
- * credentials.
- */
 @Entity
 @Table(name = "admins")
 @Data
@@ -23,15 +17,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Admin {
-    /**
-     * Unique identifier for the administrator
-     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     /**
-     * Unique username for authentication
+     * Name of the administrator
      */
     @Column(nullable = false, unique = true, name = "username")
     private String username;
@@ -43,19 +35,6 @@ public class Admin {
     @Column(nullable = false)
     private String password;
 
-    /**
-     * Encrypts the password using BCrypt before storing
-     * 
-     * @param password The text password to be encrypted
-     */
-    // public void setPassword(String password) {
-    // this.password = new BCryptPasswordEncoder().encode(password);
-    // }
-
-    /**
-     * List of companies managed by this administrator
-     * Relationship with Company entity
-     */
     @JsonIgnore
     @Builder.Default
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, orphanRemoval = true)

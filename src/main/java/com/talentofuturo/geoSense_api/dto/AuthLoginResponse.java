@@ -1,11 +1,13 @@
 package com.talentofuturo.geoSense_api.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
-@Getter
-public class LoginDTO {
+@NoArgsConstructor
+public class AuthLoginResponse {
     private String username;
     private String message;
     private String jwt;
