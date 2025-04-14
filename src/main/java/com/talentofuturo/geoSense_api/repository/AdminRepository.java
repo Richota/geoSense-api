@@ -18,4 +18,13 @@ public interface AdminRepository extends JpaRepository<Admin, Long> {
      * @return Optional containing the admin if found, empty Optional otherwise
      */
     Optional<Admin> findById(Long id);
+
+    /**
+     * Finds an admin by their username.
+     *
+     * @param username The username to search for
+     * @return Optional containing the admin if found, empty Optional otherwise
+     */
+    Optional<Admin> findByUsername(String username);
+
 }
