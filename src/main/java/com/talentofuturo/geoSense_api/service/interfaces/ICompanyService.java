@@ -22,4 +22,7 @@ public interface ICompanyService {
      * @return The created company as DTO
      */
     CompanyDTO createCompany(CompanyDTO companyDTO);
+
+    CompanyDTO updateCompany(Long id, CompanyDTO companyDTO);
+    void deleteCompany(Long id);
 }

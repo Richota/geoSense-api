@@ -22,4 +22,7 @@ public interface ILocationService {
      * @return The created location as DTO
      */
     LocationDTO createLocation(LocationDTO locationDTO);
+
+    LocationDTO updateLocation(Long id, LocationDTO locationDTO);
+    void deleteLocation(Long id);
 }

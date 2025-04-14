@@ -2,6 +2,7 @@ package com.talentofuturo.geoSense_api.controller;
 
 import com.talentofuturo.geoSense_api.controller.interfaces.ISensorController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.talentofuturo.geoSense_api.dto.SensorDTO;
@@ -28,5 +29,16 @@ public class SensorController implements ISensorController {
     @PostMapping
     public SensorDTO createSensor(@RequestBody SensorDTO sensorDTO) {
         return sensorService.createSensor(sensorDTO);
+    }
+
+    @PutMapping("/{id}")
+    public SensorDTO updateSensor(@PathVariable Long id, @RequestBody SensorDTO sensorDTO) {
+        return sensorService.updateSensor(id, sensorDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSensor(@PathVariable Long id) {
+        sensorService.deleteSensor(id);
+        return ResponseEntity.noContent().build();
     }
 }
