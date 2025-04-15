@@ -1,48 +1,57 @@
 package com.talentofuturo.geoSense_api.entity;
 
-
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.UUID;
+
 /**
  * Entity representing a Sensor device in the system.
- * Sensors are associated with locations and have unique API keys for authentication.
+ * Sensors are associated with locations and have unique API keys for
+ * authentication.
  */
 @Entity
 @Data
 @Table(name = "sensors")
 public class Sensor {
+
     /**
      * Unique identifier for the sensor
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     /**
      * Name or identifier of the sensor
      */
-    @Column(name = "sensorName")
+    @Column(name = "sensor_name", nullable = false)
+    @NotNull(message = "Sensor name cannot be null")
+    @Size(min = 3, max = 50, message = "Sensor name must be between 3 and 50 characters")
     private String sensorName;
-    
+
     /**
      * Category or type of the sensor
      */
-    @Column(name = "sensorCategory")
+    @Column(name = "sensor_category", nullable = false)
+    @NotNull(message = "Sensor category cannot be null")
+    @Size(min = 3, max = 50, message = "Sensor category must be between 3 and 50 characters")
     private String sensorCategory;
-    
+
     /**
      * Additional metadata or configuration for the sensor
      */
-    @Column(name = "sensorMeta")
+    @Column(name = "sensor_meta")
     private String sensorMeta;
-    
+
     /**
      * Unique API key for sensor authentication
      * Automatically generated using UUID
      */
-    @Column(name = "sensorApiKey")
+    @Column(name = "sensor_api_key", nullable = false, unique = true)
+    @NotNull(message = "Sensor API key cannot be null")
     private String sensorApiKey = UUID.randomUUID().toString();
 
     /**
@@ -50,6 +59,7 @@ public class Sensor {
      * Many-to-one relationship with Location entity
      */
     @ManyToOne
-    @JoinColumn(name = "location_id")
+    @JoinColumn(name = "location_id", nullable = false)
+    @NotNull(message = "Sensor must be associated with a location")
     private Location location;
 }

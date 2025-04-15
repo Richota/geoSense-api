@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -44,5 +46,8 @@ public class Company {
     @ManyToOne
     @JoinColumn(name = "admin_id", nullable = false)
     private Admin admin;
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Location> locations = new ArrayList<>();
 
 }

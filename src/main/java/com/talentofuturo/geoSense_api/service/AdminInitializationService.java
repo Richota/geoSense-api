@@ -21,10 +21,9 @@ public class AdminInitializationService {
         if (adminRepository.findByUsername("admin").isEmpty()) {
             Admin admin = Admin.builder()
                     .username("admin")
-                    .password(passwordEncoder.encode("admin123")) // Cifra la contraseña
+                    .password(passwordEncoder.encode("admin123"))
                     .build();
             adminRepository.save(admin);
-            System.out.println("Admin user created: admin / admin123");
         }
     }
 }
