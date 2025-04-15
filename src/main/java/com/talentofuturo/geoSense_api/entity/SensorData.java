@@ -1,6 +1,7 @@
 package com.talentofuturo.geoSense_api.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import java.time.Instant;
 @Getter
 @Table(name = "sensor_data")
 public class SensorData {
+
     /**
      * Unique identifier for the data reading
      */
@@ -39,7 +41,8 @@ public class SensorData {
     /**
      * Type or unit of measurement
      */
-    @Column(name = "measurement_type")
+    @Column(name = "measurement_type", nullable = false)
+    @NotNull(message = "Measurement type cannot be null")
     private String measurementType;
 
     /**
@@ -47,6 +50,6 @@ public class SensorData {
      * Many-to-one relationship with Sensor entity
      */
     @ManyToOne
-    @JoinColumn(name = "sensor_id")
+    @JoinColumn(name = "sensor_id", nullable = false)
     private Sensor sensor;
 }

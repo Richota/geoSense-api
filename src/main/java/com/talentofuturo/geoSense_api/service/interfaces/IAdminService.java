@@ -1,45 +1,15 @@
 package com.talentofuturo.geoSense_api.service.interfaces;
 
-import java.util.List;
-
-import com.talentofuturo.geoSense_api.entity.Company;
-
 /**
- * Interface defining administrative operations for company management.
+ * Interface defining administrative operations for managing admins.
  */
 public interface IAdminService {
-    /**
-     * Creates a new company associated with an admin.
-     *
-     * @param adminId The ID of the admin creating the company
-     * @param company The company details to be created
-     * @return The created company entity
-     * @throws RuntimeException if admin is not found
-     */
-    Company createCompany(Long adminId, Company company);
 
     /**
-     * Updates an existing company's information.
+     * Verifica si un administrador existe por su ID.
      *
-     * @param companyId      The ID of the company to update
-     * @param companyDetails The updated company information
-     * @return The updated company entity
-     * @throws RuntimeException if company is not found
+     * @param adminId ID del administrador.
+     * @return true si el administrador existe, de lo contrario false.
      */
-    Company updateCompany(Long companyId, Company companyDetails);
-
-    /**
-     * Deletes a company by its ID.
-     *
-     * @param companyId The ID of the company to delete
-     */
-    void deleteCompany(Long companyId);
-
-    /**
-     * Retrieves all companies managed by a specific admin.
-     *
-     * @param admin The username of the admin
-     * @return List of companies associated with the admin
-     */
-    List<Company> getAllCompaniesByAdmin(Long admin_id);
+    boolean existsById(Long adminId);
 }

@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import com.talentofuturo.geoSense_api.dto.AuthLoginRequest;
 import com.talentofuturo.geoSense_api.dto.AuthLoginResponse;
 import com.talentofuturo.geoSense_api.entity.Admin;
+import com.talentofuturo.geoSense_api.exception.InvalidCredentialsException;
+import com.talentofuturo.geoSense_api.exception.UserNotFoundException;
 import com.talentofuturo.geoSense_api.repository.AdminRepository;
 import com.talentofuturo.geoSense_api.security.jwt.JwtUtils;
 import com.talentofuturo.geoSense_api.service.interfaces.ILoginService;
@@ -76,16 +78,16 @@ public class LoginService implements ILoginService {
      * @return An Authentication object if the credentials are valid.
      */
     private Authentication authenticate(String username, String password) {
-        // Fetch the admin from the database
+        // Busca al administrador en la base de datos
         Admin admin = adminRepository.findByUsername(username)
-                .orElseThrow(() -> new BadCredentialsException("Invalid username or password"));
+                .orElseThrow(() -> new UserNotFoundException("User with username " + username + " not found"));
 
-        // Validate the password
+        // Valida la contraseña
         if (!passwordEncoder.matches(password, admin.getPassword())) {
-            throw new BadCredentialsException("Invalid username or password");
+            throw new InvalidCredentialsException("Invalid username or password");
         }
 
-        // Define roles and permissions
+        // Define roles y permisos
         List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(DEFAULT_AUTHORITIES);
 
         return new UsernamePasswordAuthenticationToken(username, null, authorities);

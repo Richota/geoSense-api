@@ -1,5 +1,7 @@
 package com.talentofuturo.geoSense_api.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -18,13 +20,13 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     /**
      * Name or identifier of the location
      */
     @Column(name = "locationName")
     private String locationName;
-    
+
     /**
      * Country where the location is
      */
@@ -48,6 +50,9 @@ public class Location {
      * Many-to-one relationship with Company entity
      */
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "company_id", nullable = false)
     private Company company;
+
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Sensor> sensors = new ArrayList<>();
 }
