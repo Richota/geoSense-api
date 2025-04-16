@@ -46,6 +46,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: richyberto1928/geosense-api:latest
     container_name: geosense-api
     depends_on:
       - kafka
