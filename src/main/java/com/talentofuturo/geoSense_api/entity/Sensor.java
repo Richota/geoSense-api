@@ -10,14 +10,12 @@ import java.util.UUID;
 
 /**
  * Entity representing a Sensor device in the system.
- * Sensors are associated with locations and have unique API keys for
- * authentication.
+ * Sensors are associated with locations and have unique API keys for authentication.
  */
 @Entity
 @Data
 @Table(name = "sensors")
 public class Sensor {
-
     /**
      * Unique identifier for the sensor
      */
@@ -28,7 +26,7 @@ public class Sensor {
     /**
      * Name or identifier of the sensor
      */
-    @Column(name = "sensor_name", nullable = false)
+    @Column(name = "sensorName", nullable = false)
     @NotNull(message = "Sensor name cannot be null")
     @Size(min = 3, max = 50, message = "Sensor name must be between 3 and 50 characters")
     private String sensorName;
@@ -36,9 +34,7 @@ public class Sensor {
     /**
      * Category or type of the sensor
      */
-    @Column(name = "sensor_category", nullable = false)
-    @NotNull(message = "Sensor category cannot be null")
-    @Size(min = 3, max = 50, message = "Sensor category must be between 3 and 50 characters")
+    @Column(name = "sensorCategory")
     private String sensorCategory;
     
     /**
@@ -62,15 +58,14 @@ public class Sensor {
     /**
      * Additional metadata or configuration for the sensor
      */
-    @Column(name = "sensor_meta")
+    @Column(name = "sensorMeta")
     private String sensorMeta;
 
     /**
      * Unique API key for sensor authentication
      * Automatically generated using UUID
      */
-    @Column(name = "sensor_api_key", nullable = false, unique = true)
-    @NotNull(message = "Sensor API key cannot be null")
+    @Column(name = "sensorApiKey")
     private String sensorApiKey = UUID.randomUUID().toString();
 
     /**
