@@ -27,9 +27,8 @@ public class Company {
     /**
      * Name of the company
      */
-    @SuppressWarnings("deprecation")
+
     @Column(name = "companyName")
-    @NotNull
     private String CompanyName;
 
     /**
