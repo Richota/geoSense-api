@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.lang.NonNull;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -16,6 +17,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -29,9 +31,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(        @NonNull HttpServletRequest request,
+    @NonNull HttpServletResponse response,
+    @NonNull FilterChain filterChain)
             throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
+        
         final String jwt;
         final String username;
 

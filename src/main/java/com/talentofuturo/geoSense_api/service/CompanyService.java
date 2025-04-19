@@ -14,7 +14,6 @@ import com.talentofuturo.geoSense_api.repository.AdminRepository;
 import com.talentofuturo.geoSense_api.repository.CompanyRepository;
 import com.talentofuturo.geoSense_api.service.interfaces.ICompanyService;
 
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service

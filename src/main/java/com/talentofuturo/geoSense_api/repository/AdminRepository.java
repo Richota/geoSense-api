@@ -11,13 +11,6 @@ import com.talentofuturo.geoSense_api.entity.Admin;
  * Provides database access and CRUD operations for Admin entities.
  */
 public interface AdminRepository extends JpaRepository<Admin, Long> {
-    /**
-     * Finds an admin by their Id.
-     *
-     * @param id The id to search for
-     * @return Optional containing the admin if found, empty Optional otherwise
-     */
-    Optional<Admin> findById(Long id);
 
     /**
      * Finds an admin by their username.
