@@ -18,4 +18,6 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
      * @return List of companies managed by the specified admin
      */
     List<Company> findByAdminId(Long admin_id);
+        // Método para buscar una empresa por su clave API
+        Company findByCompanyApiKey(String companyApiKey);
 }

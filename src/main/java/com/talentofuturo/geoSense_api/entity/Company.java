@@ -30,7 +30,7 @@ public class Company {
     @SuppressWarnings("deprecation")
     @Column(name = "companyName")
     @NotNull
-    private String CompanyName;
+    private String companyName; // ✅ nombre corregido (camelCase)
 
     /**
      * Unique API key for company authentication
@@ -39,7 +39,7 @@ public class Company {
     @SuppressWarnings("deprecation")
     @Column(name = "companyApiKey")
     @NotNull
-    private String CompanyApiKey = UUID.randomUUID().toString();
+    private String companyApiKey = UUID.randomUUID().toString(); // ✅ nombre corregido (camelCase)
 
     /**
      * Administrator who manages this company
@@ -51,5 +51,4 @@ public class Company {
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Location> locations = new ArrayList<>();
-
 }

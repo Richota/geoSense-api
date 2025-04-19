@@ -60,4 +60,14 @@ public class CompanyService implements ICompanyService {
                 .map(companyMapper::mapCompany)
                 .collect(Collectors.toList());
     }
+    /**
+     * Verifica si la clave API proporcionada es válida para alguna empresa.
+     *
+     * @param apiKey La clave API a verificar.
+     * @return true si la clave API es válida, false si no.
+     */
+    public boolean isValidApiKey(String apiKey) {
+        Company company = companyRepository.findByCompanyApiKey(apiKey);
+        return company != null; // Si la compañía existe, la clave es válida
+    }
 }

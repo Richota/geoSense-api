@@ -18,7 +18,7 @@ public class CompanyMapper {
         }
         return new CompanyDTO(
                 company.getId(),
-                company.getCompanyName());
+                company.getCompanyName(), null);
     }
 
     public Company mapDTO(CompanyDTO companyDTO) {
