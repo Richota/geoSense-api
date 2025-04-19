@@ -4,11 +4,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
  * Entity representing a Company in the system.
- * Companies are managed by administrators and are identified by unique API keys.
+ * Companies are managed by administrators and are identified by unique API
+ * keys.
  */
 @Entity
 @Data
@@ -18,7 +21,7 @@ public class Company {
      * Unique identifier for the company
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     /**
@@ -43,6 +46,10 @@ public class Company {
      * Many-to-one relationship with Admin entity
      */
     @ManyToOne
-    @JoinColumn(name = "admin_username")
+    @JoinColumn(name = "admin_id", nullable = false)
     private Admin admin;
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Location> locations = new ArrayList<>();
+
 }
