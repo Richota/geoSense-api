@@ -13,7 +13,7 @@ import com.talentofuturo.geoSense_api.service.AdminService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/admins")
+@RequestMapping("/api/v1/admins")
 @AllArgsConstructor
 public class AdminController implements IAdminController {
 
