@@ -3,6 +3,10 @@ package com.talentofuturo.geoSense_api.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,43 +18,26 @@ import lombok.Data;
 @Data
 @Table(name = "locations")
 public class Location {
-    /**
-     * Unique identifier for the location
-     */
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "location_seq")
     private Long id;
 
-    /**
-     * Name or identifier of the location
-     */
-    @Column(name = "locationName")
+    @Column(name = "locationName", nullable = false)
     private String locationName;
 
-    /**
-     * Country where the location is
-     */
     @Column(name = "locationCountry")
     private String locationCountry;
 
-    /**
-     * City where the location is
-     */
     @Column(name = "locationCity")
     private String locationCity;
 
-    /**
-     * Additional metadata or information about the location
-     */
     @Column(name = "locationMeta")
     private String locationMeta;
 
-    /**
-     * Company that owns or manages this location
-     * Many-to-one relationship with Company entity
-     */
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
+    @JsonBackReference
     private Company company;
 
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -2,27 +2,20 @@ package com.talentofuturo.geoSense_api.controller.interfaces;
 
 import java.util.List;
 
-import com.talentofuturo.geoSense_api.dto.LocationDTO;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
-/**
- * Defines the contract for location management operations through REST endpoints.
- * Handles basic CRUD operations for locations in the system.
- */
+import com.talentofuturo.geoSense_api.entity.Location;
+
 public interface ILocationController {
-    /**
-     * Retrieves a list of all locations in the system.
-     * Accessible via GET /api/v1/locations
-     *
-     * @return A list of locations represented as DTOs
-     */
-    List<LocationDTO> getAllLocations();
+    ResponseEntity<Location> createLocation(@PathVariable Long companyId, @RequestBody Location location);
 
-    /**
-     * Creates a new location in the system.
-     * Accessible via POST /api/v1/locations
-     *
-     * @param locationDTO The location information to be created
-     * @return The created location as a DTO with generated ID
-     */
-    LocationDTO createLocation(LocationDTO locationDTO);
+    ResponseEntity<Location> getLocation(@PathVariable Long locationId);
+
+    ResponseEntity<Location> updateLocation(@PathVariable Long locationId, @RequestBody Location location);
+
+    ResponseEntity<Void> deleteLocation(@PathVariable Long locationId);
+
+    ResponseEntity<List<Location>> getAllLocations();
 }

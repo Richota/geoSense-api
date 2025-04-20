@@ -1,15 +1,13 @@
 package com.talentofuturo.geoSense_api.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.UUID;
 
 /**
  * Entity representing a Sensor device in the system.
- * Sensors are associated with locations and have unique API keys for
+ * Sensors are associated with companies and have unique API keys for
  * authentication.
  */
 @Entity
@@ -17,49 +15,31 @@ import java.util.UUID;
 @Table(name = "sensors")
 public class Sensor {
 
-    /**
-     * Unique identifier for the sensor
-     */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sensor_seq")
     private Long id;
 
-    /**
-     * Name or identifier of the sensor
-     */
     @Column(name = "sensor_name", nullable = false)
-    @NotNull(message = "Sensor name cannot be null")
-    @Size(min = 3, max = 50, message = "Sensor name must be between 3 and 50 characters")
     private String sensorName;
 
-    /**
-     * Category or type of the sensor
-     */
     @Column(name = "sensor_category", nullable = false)
-    @NotNull(message = "Sensor category cannot be null")
-    @Size(min = 3, max = 50, message = "Sensor category must be between 3 and 50 characters")
     private String sensorCategory;
 
-    /**
-     * Additional metadata or configuration for the sensor
-     */
     @Column(name = "sensor_meta")
     private String sensorMeta;
 
-    /**
-     * Unique API key for sensor authentication
-     * Automatically generated using UUID
-     */
-    @Column(name = "sensor_api_key", nullable = false, unique = true)
-    @NotNull(message = "Sensor API key cannot be null")
-    private String sensorApiKey = UUID.randomUUID().toString();
+    @Column(name = "sensor_api_key", nullable = false, unique = true, updatable = false)
+    private String sensorApiKey;
 
-    /**
-     * Location where this sensor is installed
-     * Many-to-one relationship with Location entity
-     */
+    @Column(name = "company_api_key", nullable = false)
+    private String companyApiKey;
+
     @ManyToOne
     @JoinColumn(name = "location_id", nullable = false)
-    @NotNull(message = "Sensor must be associated with a location")
     private Location location;
+
+    @PrePersist
+    private void generateApiKey() {
+        this.sensorApiKey = UUID.randomUUID().toString();
+    }
 }

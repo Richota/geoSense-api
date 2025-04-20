@@ -19,7 +19,7 @@ import java.util.List;
 public class Admin {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "admin_seq")
     private Long id;
 
     /**

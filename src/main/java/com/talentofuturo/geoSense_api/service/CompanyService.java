@@ -1,20 +1,19 @@
 package com.talentofuturo.geoSense_api.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Service;
 
 import com.talentofuturo.geoSense_api.dto.CompanyDTO;
 import com.talentofuturo.geoSense_api.entity.Admin;
 import com.talentofuturo.geoSense_api.entity.Company;
 import com.talentofuturo.geoSense_api.exception.ResourceNotFoundException;
-import com.talentofuturo.geoSense_api.mapper.CompanyMapper;
 import com.talentofuturo.geoSense_api.repository.AdminRepository;
 import com.talentofuturo.geoSense_api.repository.CompanyRepository;
 import com.talentofuturo.geoSense_api.service.interfaces.ICompanyService;
 
 import lombok.AllArgsConstructor;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -22,17 +21,18 @@ public class CompanyService implements ICompanyService {
 
     private final CompanyRepository companyRepository;
     private final AdminRepository adminRepository;
-    private final CompanyMapper companyMapper;
 
     public CompanyDTO createCompany(Long adminId, CompanyDTO companyDTO) {
         Admin admin = adminRepository.findById(adminId)
                 .orElseThrow(() -> new ResourceNotFoundException("Admin with ID " + adminId + " not found"));
 
-        Company company = companyMapper.mapDTO(companyDTO);
+        Company company = new Company();
+        company.setCompanyName(companyDTO.getCompanyName());
         company.setAdmin(admin);
 
         Company savedCompany = companyRepository.save(company);
-        return companyMapper.mapCompany(savedCompany);
+
+        return new CompanyDTO(savedCompany.getId(), savedCompany.getCompanyName(), savedCompany.getCompanyApiKey());
     }
 
     public CompanyDTO updateCompany(Long companyId, CompanyDTO companyDTO) {
@@ -42,7 +42,8 @@ public class CompanyService implements ICompanyService {
         company.setCompanyName(companyDTO.getCompanyName());
         Company updatedCompany = companyRepository.save(company);
 
-        return companyMapper.mapCompany(updatedCompany);
+        return new CompanyDTO(updatedCompany.getId(), updatedCompany.getCompanyName(),
+                updatedCompany.getCompanyApiKey());
     }
 
     public void deleteCompany(Long companyId) {
@@ -53,11 +54,9 @@ public class CompanyService implements ICompanyService {
     }
 
     public List<CompanyDTO> getAllCompaniesByAdmin(Long adminId) {
-        Admin admin = adminRepository.findById(adminId)
-                .orElseThrow(() -> new ResourceNotFoundException("Admin with ID " + adminId + " not found"));
-
-        return admin.getCompanies().stream()
-                .map(companyMapper::mapCompany)
+        List<Company> companies = companyRepository.findByAdminId(adminId);
+        return companies.stream()
+                .map(company -> new CompanyDTO(company.getId(), company.getCompanyName(), company.getCompanyApiKey()))
                 .collect(Collectors.toList());
     }
 }

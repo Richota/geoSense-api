@@ -17,7 +17,7 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
      * Retrieves all locations associated with a specific company.
      *
      * @param companyId The ID of the company
-     * @return List of locations belonging to the specified company
+     * @return List of locations associated with the specified company
      */
     List<Location> findByCompanyId(Long companyId);
 }

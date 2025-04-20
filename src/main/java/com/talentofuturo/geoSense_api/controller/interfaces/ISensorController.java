@@ -2,27 +2,23 @@ package com.talentofuturo.geoSense_api.controller.interfaces;
 
 import java.util.List;
 
-import com.talentofuturo.geoSense_api.dto.SensorDTO;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- * Defines the contract for sensor management operations through REST endpoints.
- * Handles basic CRUD operations for sensors in the system.
- */
+import com.talentofuturo.geoSense_api.dto.SensorDataMessage;
+import com.talentofuturo.geoSense_api.entity.Sensor;
+
 public interface ISensorController {
-    /**
-     * Retrieves a list of all sensors in the system.
-     * Accessible via GET /api/v1/sensors
-     *
-     * @return A list of sensors represented as DTOs
-     */
-    List<SensorDTO> getAllSensors();
+    ResponseEntity<Sensor> createSensor(@RequestParam String companyApiKey, @RequestParam Long locationId,
+            @RequestBody Sensor sensor);
 
-    /**
-     * Creates a new sensor in the system.
-     * Accessible via POST /api/v1/sensors
-     *
-     * @param sensorDTO The sensor information to be created
-     * @return The created sensor as a DTO with generated ID
-     */
-    SensorDTO createSensor(SensorDTO sensorDTO);
+    ResponseEntity<Sensor> getSensor(@PathVariable Long sensorId);
+
+    ResponseEntity<Sensor> updateSensor(@PathVariable Long sensorId, @RequestBody Sensor sensor);
+
+    ResponseEntity<Void> deleteSensor(@PathVariable Long sensorId);
+
+    ResponseEntity<List<Sensor>> getAllSensors();
 }

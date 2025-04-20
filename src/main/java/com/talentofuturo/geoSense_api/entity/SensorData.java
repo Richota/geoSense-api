@@ -6,6 +6,8 @@ import lombok.Data;
 
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Entity representing data readings from a Sensor.
  * Stores measurement values and timestamps from sensor devices.
@@ -49,5 +51,6 @@ public class SensorData {
      */
     @ManyToOne
     @JoinColumn(name = "sensor_id", nullable = false)
+    @JsonIgnore
     private Sensor sensor;
 }

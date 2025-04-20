@@ -1,38 +1,61 @@
 package com.talentofuturo.geoSense_api.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import com.talentofuturo.geoSense_api.dto.SensorDTO;
+import com.talentofuturo.geoSense_api.entity.Location;
 import com.talentofuturo.geoSense_api.entity.Sensor;
-import com.talentofuturo.geoSense_api.mapper.SensorMapper;
+import com.talentofuturo.geoSense_api.exception.ResourceNotFoundException;
+import com.talentofuturo.geoSense_api.repository.LocationRepository;
 import com.talentofuturo.geoSense_api.repository.SensorRepository;
 import com.talentofuturo.geoSense_api.service.interfaces.ISensorService;
 
 import lombok.AllArgsConstructor;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-/**
- * Implementation of sensor management operations.
- */
 @Service
 @AllArgsConstructor
 public class SensorService implements ISensorService {
+
     private final SensorRepository sensorRepository;
-    private final SensorMapper sensorMapper;  // Add this field
+    private final LocationRepository locationRepository;
 
     @Override
-    public List<SensorDTO> getAllSensors() {
-        return sensorRepository.findAll().stream()
-                .map(sensorMapper::mapSensor)  // Use instance method
-                .collect(Collectors.toList());
+    public Sensor getSensorById(Long sensorId) {
+        return sensorRepository.findById(sensorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Sensor with ID " + sensorId + " not found"));
     }
 
     @Override
-    public SensorDTO createSensor(SensorDTO sensorDTO) {
-        Sensor sensor = sensorMapper.mapDTO(sensorDTO);  // Use instance method
-        Sensor savedSensor = sensorRepository.save(sensor);
-        return sensorMapper.mapSensor(savedSensor);  // Use instance method
+    public Sensor createSensor(String companyApiKey, Long locationId, Sensor sensor) {
+        Location location = locationRepository.findById(locationId)
+                .filter(loc -> loc.getCompany().getCompanyApiKey().equals(companyApiKey))
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Location not found or does not belong to the company"));
+
+        sensor.setLocation(location);
+        sensor.setCompanyApiKey(companyApiKey);
+        return sensorRepository.save(sensor);
+    }
+
+    @Override
+    public Sensor updateSensor(Long sensorId, Sensor sensorDetails) {
+        Sensor sensor = getSensorById(sensorId);
+        sensor.setSensorName(sensorDetails.getSensorName());
+        sensor.setSensorCategory(sensorDetails.getSensorCategory());
+        sensor.setSensorMeta(sensorDetails.getSensorMeta());
+        return sensorRepository.save(sensor);
+    }
+
+    @Override
+    public void deleteSensor(Long sensorId) {
+        if (!sensorRepository.existsById(sensorId)) {
+            throw new ResourceNotFoundException("Sensor with ID " + sensorId + " not found");
+        }
+        sensorRepository.deleteById(sensorId);
+    }
+
+    public List<Sensor> getAllSensors() {
+        return sensorRepository.findAll();
     }
 }

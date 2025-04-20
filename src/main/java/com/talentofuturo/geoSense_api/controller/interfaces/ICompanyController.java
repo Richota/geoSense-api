@@ -9,31 +9,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.talentofuturo.geoSense_api.dto.CompanyDTO;
 
 /**
- * Interface defining the contract for company operations.
- * Provides endpoints for managing companies through REST API.
+ * Interface defining the contract for CompanyController.
  */
 public interface ICompanyController {
 
     /**
-     * Creates a new company in the system.
+     * Creates a new company associated with an admin.
      *
-     * @param adminId    The ID of the admin creating the company.
-     * @param companyDTO The company data to be created.
-     * @return The created company as DTO.
+     * @param adminId    The ID of the admin.
+     * @param companyDTO The company data to create.
+     * @return The created company as a DTO.
      */
     ResponseEntity<CompanyDTO> createCompany(@PathVariable Long adminId, @RequestBody CompanyDTO companyDTO);
 
     /**
-     * Updates an existing company in the system.
+     * Updates an existing company.
      *
      * @param companyId  The ID of the company to update.
      * @param companyDTO The updated company data.
-     * @return The updated company as DTO.
+     * @return The updated company as a DTO.
      */
     ResponseEntity<CompanyDTO> updateCompany(@PathVariable Long companyId, @RequestBody CompanyDTO companyDTO);
 
     /**
-     * Deletes a company from the system.
+     * Deletes a company by its ID.
      *
      * @param companyId The ID of the company to delete.
      * @return A response indicating the result of the operation.
@@ -41,7 +40,7 @@ public interface ICompanyController {
     ResponseEntity<Void> deleteCompany(@PathVariable Long companyId);
 
     /**
-     * Retrieves all companies managed by a specific admin.
+     * Retrieves all companies associated with a specific admin.
      *
      * @param adminId The ID of the admin.
      * @return A list of companies as DTOs.
