@@ -2,6 +2,8 @@ package com.talentofuturo.geoSense_api.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.UUID;
 
@@ -13,6 +15,7 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "sensors")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Sensor {
 
     @Id

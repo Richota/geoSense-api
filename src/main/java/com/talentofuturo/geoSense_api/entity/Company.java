@@ -2,12 +2,15 @@ package com.talentofuturo.geoSense_api.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.UUID;
 
 @Entity
 @Data
 @Table(name = "companies")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Company {
 
     @Id
