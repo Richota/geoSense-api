@@ -1,6 +1,9 @@
 package com.talentofuturo.geoSense_api.controller;
 
+import java.time.Instant;
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,15 +12,24 @@ import org.springframework.web.bind.annotation.*;
 import com.talentofuturo.geoSense_api.dto.SensorDataMessage;
 import com.talentofuturo.geoSense_api.kafka.SensorDataConsumer;
 import com.talentofuturo.geoSense_api.kafka.SensorDataProducer;
-
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 
 @RestController
 @RequestMapping("/api/v1/sensors")
-@AllArgsConstructor
 public class SensorDataController {
 
+    private String kafkaTopic;
     private final SensorDataProducer sensorDataProducer;
+    private final SensorDataConsumer sensorDataConsumer;
+
+    public SensorDataController(
+            SensorDataProducer sensorDataProducer,
+            SensorDataConsumer sensorDataConsumer,
+            @Value("${spring.kafka.topic}") String kafkaTopic) {
+        this.sensorDataProducer = sensorDataProducer;
+        this.sensorDataConsumer = sensorDataConsumer;
+        this.kafkaTopic = kafkaTopic;
+    }
 
     /**
      * Endpoint to send sensor data to Kafka.
@@ -36,8 +48,6 @@ public class SensorDataController {
                     .body("Failed to send sensor data: " + e.getMessage());
         }
     }
-
-    private final SensorDataConsumer sensorDataConsumer;
 
     /**
      * Endpoint to retrieve consumed sensor data messages.
