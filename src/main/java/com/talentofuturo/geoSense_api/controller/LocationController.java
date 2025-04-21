@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.talentofuturo.geoSense_api.dto.LocationDTO;
 import com.talentofuturo.geoSense_api.entity.Location;
+import com.talentofuturo.geoSense_api.mapper.LocationMapper;
 import com.talentofuturo.geoSense_api.service.LocationService;
 import com.talentofuturo.geoSense_api.controller.interfaces.ILocationController;
 
@@ -18,6 +20,7 @@ import lombok.AllArgsConstructor;
 public class LocationController implements ILocationController {
 
     private final LocationService locationService;
+    private final LocationMapper locationMapper;
 
     @PostMapping("/create/{companyId}")
     public ResponseEntity<Location> createLocation(@PathVariable Long companyId, @RequestBody Location location) {
@@ -26,9 +29,10 @@ public class LocationController implements ILocationController {
     }
 
     @GetMapping("/{locationId}")
-    public ResponseEntity<Location> getLocation(@PathVariable Long locationId) {
+    public ResponseEntity<LocationDTO> getLocation(@PathVariable Long locationId) {
         Location location = locationService.getLocationById(locationId);
-        return ResponseEntity.ok(location);
+        LocationDTO locationDTO = locationMapper.toDTO(location);
+        return ResponseEntity.ok(locationDTO);
     }
 
     @PutMapping("/update/{locationId}")
@@ -44,8 +48,9 @@ public class LocationController implements ILocationController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Location>> getAllLocations() {
+    public ResponseEntity<List<LocationDTO>> getAllLocations() {
         List<Location> locations = locationService.getAllLocations();
-        return ResponseEntity.ok(locations);
+        List<LocationDTO> locationDTOs = locationMapper.toDTOList(locations);
+        return ResponseEntity.ok(locationDTOs);
     }
 }

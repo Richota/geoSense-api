@@ -3,9 +3,8 @@ package com.talentofuturo.geoSense_api.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -17,6 +16,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "locations")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Location {
 
     @Id
@@ -37,7 +37,6 @@ public class Location {
 
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
-    @JsonBackReference
     private Company company;
 
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)

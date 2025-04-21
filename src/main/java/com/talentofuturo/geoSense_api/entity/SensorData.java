@@ -15,13 +15,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Data
 @Table(name = "sensor_data")
+@SequenceGenerator(name = "sensor_data_seq", sequenceName = "sensor_data_seq", allocationSize = 1)
 public class SensorData {
 
     /**
      * Unique identifier for the data reading
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sensor_data_seq")
     private Long id;
 
     /**

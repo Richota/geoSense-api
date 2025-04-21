@@ -49,4 +49,28 @@ public interface ISensorService {
      * @return A list of all sensors.
      */
     List<Sensor> getAllSensors();
+
+    /**
+     * Retrieves all sensors belonging to a specific company.
+     *
+     * @param companyApiKey The API key of the company.
+     * @return A list of sensors belonging to the specified company.
+     */
+    List<Sensor> getSensorsByCompany(String companyApiKey);
+
+    /**
+     * Retrieves all sensors installed at a specific location.
+     *
+     * @param locationId The ID of the location.
+     * @return A list of sensors at the specified location.
+     */
+    List<Sensor> getSensorsByLocation(Long locationId);
+
+    /**
+     * Retrieves a sensor by its API key.
+     *
+     * @param sensorApiKey The API key of the sensor.
+     * @return The sensor entity if found, or null if not found.
+     */
+    Sensor getSensorByApiKey(String sensorApiKey);
 }

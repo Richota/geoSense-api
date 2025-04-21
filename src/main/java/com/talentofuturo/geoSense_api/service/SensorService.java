@@ -55,7 +55,28 @@ public class SensorService implements ISensorService {
         sensorRepository.deleteById(sensorId);
     }
 
+    @Override
     public List<Sensor> getAllSensors() {
         return sensorRepository.findAll();
+    }
+
+    @Override
+    public List<Sensor> getSensorsByCompany(String companyApiKey) {
+        return sensorRepository.findByCompanyApiKey(companyApiKey);
+    }
+
+    @Override
+    public List<Sensor> getSensorsByLocation(Long locationId) {
+        // Verificar que la ubicación existe
+        if (!locationRepository.existsById(locationId)) {
+            throw new ResourceNotFoundException("Location with ID " + locationId + " not found");
+        }
+        return sensorRepository.findByLocationId(locationId);
+    }
+
+    @Override
+    public Sensor getSensorByApiKey(String sensorApiKey) {
+        return sensorRepository.findBySensorApiKey(sensorApiKey)
+                .orElseThrow(() -> new ResourceNotFoundException("Sensor with API key " + sensorApiKey + " not found"));
     }
 }

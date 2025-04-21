@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Data Transfer Object for Sensor information.
- * It transfers sensor data between layers of the application.
+ * DTO for Sensor entity, without circular references.
+ * Es inmutable para garantizar la integridad de los datos.
  */
 @Getter
 @AllArgsConstructor
@@ -13,25 +13,40 @@ public class SensorDTO {
     /**
      * Unique identifier for the sensor
      */
-    private Long id;
+    private final Long id;
 
     /**
      * Name of the sensor
      */
-    private String sensorName;
+    private final String sensorName;
 
     /**
-     * Type or model of the sensor
+     * Category of the sensor
      */
-    private String sensorType;
-
-    /**
-     * Current status of the sensor
-     */
-    private String sensorStatus;
+    private final String sensorCategory;
 
     /**
      * Additional metadata about the sensor
      */
-    private String sensorMeta;
+    private final String sensorMeta;
+
+    /**
+     * API key for the sensor
+     */
+    private final String sensorApiKey;
+
+    /**
+     * API key for the company
+     */
+    private final String companyApiKey;
+
+    /**
+     * ID of the location associated with the sensor
+     */
+    private final Long locationId;
+
+    /**
+     * Name of the location associated with the sensor
+     */
+    private final String locationName;
 }
