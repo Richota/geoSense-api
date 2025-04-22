@@ -1,23 +1,24 @@
 package com.talentofuturo.geoSense_api.repository;
 
-import java.util.List;
-
+import com.talentofuturo.geoSense_api.entity.SensorData;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.talentofuturo.geoSense_api.entity.SensorData;
+import java.time.Instant;
+import java.util.List;
 
 @Repository
-/**
- * Repository interface for SensorData entity operations.
- * Provides database access and CRUD operations for sensor readings and measurements.
- */
 public interface SensorDataRepository extends JpaRepository<SensorData, Long> {
-    /**
-     * Retrieves all data readings from a specific sensor.
-     *
-     * @param sensorId The ID of the sensor
-     * @return List of data readings from the specified sensor
-     */
+
+    // Encuentra datos de un sensor por su ID y un rango de tiempo
+    List<SensorData> findBySensorIdAndTimestartBetween(Long sensorId, Instant start, Instant end);
+
+    // Encuentra todos los datos de un sensor por su ID
     List<SensorData> findBySensorId(Long sensorId);
+
+    // Encuentra el último dato de un sensor por su ID
+    SensorData findFirstBySensorIdOrderByTimestartDesc(Long sensorId);
+
 }

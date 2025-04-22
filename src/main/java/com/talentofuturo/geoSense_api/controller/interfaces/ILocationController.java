@@ -10,7 +10,7 @@ import com.talentofuturo.geoSense_api.dto.LocationDTO;
 import com.talentofuturo.geoSense_api.entity.Location;
 
 public interface ILocationController {
-    ResponseEntity<Location> createLocation(@PathVariable Long companyId, @RequestBody Location location);
+    ResponseEntity<LocationDTO> createLocation(@PathVariable Long companyId, @RequestBody Location location);
 
     ResponseEntity<LocationDTO> getLocation(@PathVariable Long locationId);
 

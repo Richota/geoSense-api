@@ -26,25 +26,44 @@ public class SensorData {
     private Long id;
 
     /**
-     * Value recorded by the sensor
+     * Unique identifier for the sensor
      */
-    @Column(name = "value", nullable = false)
-    @NotNull(message = "Sensor data value cannot be null")
-    private Double value;
+    @Column(name = "apiKey", nullable = false, unique = true)
+    @NotNull(message = "Sensor data api_key cannot be null")
+    private Double apiKey;
 
     /**
      * Timestamp when the reading was taken
      */
-    @Column(name = "timestamp", nullable = false)
-    @NotNull(message = "Timestamp cannot be null")
-    private Instant timestamp;
+    @Column(name = "timestart", nullable = false)
+    private Instant timestart;
+    /**
+     * Timestamp when the reading was taken
+     */
+    @Column(name = "timeend", nullable = false)
+
+    private Instant timeend;
 
     /**
      * Type or unit of measurement
      */
-    @Column(name = "measurement_type", nullable = false)
+    @Column(name = "measurement_type1", nullable = false)
     @NotNull(message = "Measurement type cannot be null")
-    private String measurementType;
+    private String measurementType1;
+
+    /**
+     * Type or unit of measurement
+     */
+    @Column(name = "measurement_type2", nullable = false)
+    @NotNull(message = "Measurement type cannot be null")
+    private String measurementType2;
+
+    /**
+     * Type or unit of measurement
+     */
+    @Column(name = "measurement_type3", nullable = false)
+    @NotNull(message = "Measurement type cannot be null")
+    private String measurementType3;
 
     /**
      * Sensor that generated this data
@@ -54,4 +73,20 @@ public class SensorData {
     @JoinColumn(name = "sensor_id", nullable = false)
     @JsonIgnore
     private Sensor sensor;
+
+    public void setMeasurementType(String measurementType) {
+        this.measurementType1 = measurementType;
+    }
+
+    public void setApiKey(Double apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    public void setTimestamp(Instant timestamp) {
+        this.timestart = timestamp;
+    }
+
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor; // Asigna el objeto Sensor al atributo sensor
+    }
 }

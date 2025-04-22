@@ -1,62 +1,56 @@
 package com.talentofuturo.geoSense_api.controller;
 
-import java.time.Instant;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
+import com.talentofuturo.geoSense_api.dto.SensorDataDTO;
+import com.talentofuturo.geoSense_api.service.SensorDataService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.talentofuturo.geoSense_api.dto.SensorDataMessage;
-import com.talentofuturo.geoSense_api.kafka.SensorDataConsumer;
-import com.talentofuturo.geoSense_api.kafka.SensorDataProducer;
-import org.springframework.beans.factory.annotation.Value;
+import java.time.Instant;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/sensors")
-public class SensorDataController {
+@RequestMapping("/api/v1/sensor_data")
+@RequiredArgsConstructor
+public class SensorDataController implements ISensorDataController {
 
-    private String kafkaTopic;
-    private final SensorDataProducer sensorDataProducer;
-    private final SensorDataConsumer sensorDataConsumer;
+    private final SensorDataService sensorDataService;
 
-    public SensorDataController(
-            SensorDataProducer sensorDataProducer,
-            SensorDataConsumer sensorDataConsumer,
-            @Value("${spring.kafka.topic}") String kafkaTopic) {
-        this.sensorDataProducer = sensorDataProducer;
-        this.sensorDataConsumer = sensorDataConsumer;
-        this.kafkaTopic = kafkaTopic;
+    /**
+     * Insert sensor data using sensor_api_key for authorization.
+     *
+     * @param sensorApiKey  The API key of the sensor.
+     * @param sensorDataDTO The sensor data to insert.
+     * @return The inserted sensor data.
+     */
+    @PostMapping
+    public ResponseEntity<SensorDataDTO> insertSensorData(
+            @RequestHeader("sensor_api_key") String sensorApiKey,
+            @RequestBody SensorDataDTO sensorDataDTO) {
+        SensorDataDTO savedData = sensorDataService.saveSensorData(sensorApiKey, sensorDataDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedData);
     }
 
     /**
-     * Endpoint to send sensor data to Kafka.
+     * Query sensor data with filters.
      *
-     * @param sensorDataMessage The sensor data message to send.
-     * @return Response indicating the result of the operation.
+     * @param companyApiKey The API key of the company.
+     * @param from          The start timestamp in EPOCH format.
+     * @param to            The end timestamp in EPOCH format.
+     * @param sensorIds     The list of sensor IDs to query.
+     * @return A list of sensor data matching the filters.
      */
-    @PostMapping("/send")
-    public ResponseEntity<String> sendSensorData(@RequestBody SensorDataMessage sensorDataMessage) {
-        try {
-            // Send the sensor data to Kafka
-            sensorDataProducer.sendSensorData("sensor-data-topic", sensorDataMessage);
-            return ResponseEntity.status(HttpStatus.OK).body("Sensor data sent successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to send sensor data: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Endpoint to retrieve consumed sensor data messages.
-     *
-     * @return List of SensorDataMessage objects.
-     */
-    @GetMapping("/consumed")
-    public ResponseEntity<List<SensorDataMessage>> getConsumedMessages() {
-        List<SensorDataMessage> messages = sensorDataConsumer.getConsumedMessages();
-        return ResponseEntity.ok(messages);
+    @GetMapping
+    public ResponseEntity<List<SensorDataDTO>> querySensorData(
+            @RequestParam("company_api_key") String companyApiKey,
+            @RequestParam("from") long from,
+            @RequestParam("to") long to,
+            @RequestParam("sensor_id") List<Long> sensorIds) {
+        Instant fromTimestamp = Instant.ofEpochSecond(from);
+        Instant toTimestamp = Instant.ofEpochSecond(to);
+        List<SensorDataDTO> sensorDataList = sensorDataService.querySensorData(companyApiKey, fromTimestamp,
+                toTimestamp, sensorIds);
+        return ResponseEntity.ok(sensorDataList);
     }
 }

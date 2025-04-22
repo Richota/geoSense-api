@@ -18,6 +18,12 @@ public class CompanyController implements ICompanyController {
 
     private final ICompanyService companyService;
 
+    @GetMapping("/get/{companyId}")
+    public ResponseEntity<CompanyDTO> getCompanyById(@PathVariable Long companyId) {
+        CompanyDTO company = companyService.getCompanyById(companyId);
+        return ResponseEntity.ok(company);
+    }
+
     @PostMapping("/create/{adminId}")
     public ResponseEntity<CompanyDTO> createCompany(@PathVariable Long adminId, @RequestBody CompanyDTO companyDTO) {
         CompanyDTO createdCompany = companyService.createCompany(adminId, companyDTO);
@@ -41,4 +47,5 @@ public class CompanyController implements ICompanyController {
         List<CompanyDTO> companies = companyService.getAllCompaniesByAdmin(adminId);
         return ResponseEntity.ok(companies);
     }
+
 }

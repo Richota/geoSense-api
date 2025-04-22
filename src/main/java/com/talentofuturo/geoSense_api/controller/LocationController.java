@@ -23,9 +23,10 @@ public class LocationController implements ILocationController {
     private final LocationMapper locationMapper;
 
     @PostMapping("/create/{companyId}")
-    public ResponseEntity<Location> createLocation(@PathVariable Long companyId, @RequestBody Location location) {
+    public ResponseEntity<LocationDTO> createLocation(@PathVariable Long companyId, @RequestBody Location location) {
         Location createdLocation = locationService.createLocation(companyId, location);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdLocation);
+        LocationDTO locationDTO = locationMapper.toDTO(createdLocation);
+        return ResponseEntity.status(HttpStatus.CREATED).body(locationDTO);
     }
 
     @GetMapping("/{locationId}")
