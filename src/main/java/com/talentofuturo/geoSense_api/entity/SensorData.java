@@ -18,57 +18,32 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @SequenceGenerator(name = "sensor_data_seq", sequenceName = "sensor_data_seq", allocationSize = 1)
 public class SensorData {
 
-    /**
-     * Unique identifier for the data reading
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sensor_data_seq")
     private Long id;
 
-    /**
-     * Unique identifier for the sensor
-     */
     @Column(name = "apiKey", nullable = false, unique = true)
     @NotNull(message = "Sensor data api_key cannot be null")
     private Double apiKey;
 
-    /**
-     * Timestamp when the reading was taken
-     */
     @Column(name = "timestart", nullable = false)
     private Instant timestart;
-    /**
-     * Timestamp when the reading was taken
-     */
-    @Column(name = "timeend", nullable = false)
 
+    @Column(name = "timeend", nullable = false)
     private Instant timeend;
 
-    /**
-     * Type or unit of measurement
-     */
     @Column(name = "measurement_type1", nullable = false)
     @NotNull(message = "Measurement type cannot be null")
     private String measurementType1;
 
-    /**
-     * Type or unit of measurement
-     */
     @Column(name = "measurement_type2", nullable = false)
     @NotNull(message = "Measurement type cannot be null")
     private String measurementType2;
 
-    /**
-     * Type or unit of measurement
-     */
     @Column(name = "measurement_type3", nullable = false)
     @NotNull(message = "Measurement type cannot be null")
     private String measurementType3;
 
-    /**
-     * Sensor that generated this data
-     * Many-to-one relationship with Sensor entity
-     */
     @ManyToOne
     @JoinColumn(name = "sensor_id", nullable = false)
     @JsonIgnore
@@ -87,6 +62,6 @@ public class SensorData {
     }
 
     public void setSensor(Sensor sensor) {
-        this.sensor = sensor; // Asigna el objeto Sensor al atributo sensor
+        this.sensor = sensor;
     }
 }

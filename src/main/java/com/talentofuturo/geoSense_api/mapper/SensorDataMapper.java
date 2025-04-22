@@ -16,7 +16,6 @@ public class SensorDataMapper {
         dto.setMeasurementType1(sensorData.getMeasurementType1());
         dto.setMeasurementType2(sensorData.getMeasurementType2());
         dto.setMeasurementType3(sensorData.getMeasurementType3());
-        dto.setSensorId(sensorData.getSensor().getId());
         return dto;
     }
 
@@ -29,8 +28,6 @@ public class SensorDataMapper {
         sensorData.setMeasurementType1(dto.getMeasurementType1());
         sensorData.setMeasurementType2(dto.getMeasurementType2());
         sensorData.setMeasurementType3(dto.getMeasurementType3());
-        // The sensor entity should be set elsewhere, as it requires fetching from the
-        // database
         return sensorData;
     }
 }
