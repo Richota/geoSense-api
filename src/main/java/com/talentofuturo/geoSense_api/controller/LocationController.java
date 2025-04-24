@@ -22,10 +22,13 @@ public class LocationController implements ILocationController {
     private final LocationService locationService;
     private final LocationMapper locationMapper;
 
-    @PostMapping("/create/{companyId}")
-    public ResponseEntity<Location> createLocation(@PathVariable Long companyId, @RequestBody Location location) {
-        Location createdLocation = locationService.createLocation(companyId, location);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdLocation);
+    @PostMapping("/create")
+    public ResponseEntity<LocationDTO> createLocation(
+            @RequestParam("company_api_key") String companyApiKey,
+            @RequestBody Location location) {
+        Location createdLocation = locationService.createLocationByApiKey(companyApiKey, location);
+        LocationDTO locationDTO = locationMapper.toDTO(createdLocation);
+        return ResponseEntity.status(HttpStatus.CREATED).body(locationDTO);
     }
 
     @GetMapping("/{locationId}")

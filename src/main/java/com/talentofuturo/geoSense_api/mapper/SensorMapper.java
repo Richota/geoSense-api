@@ -1,37 +1,17 @@
 package com.talentofuturo.geoSense_api.mapper;
 
-import org.springframework.stereotype.Component;
-
 import com.talentofuturo.geoSense_api.dto.SensorDTO;
 import com.talentofuturo.geoSense_api.entity.Sensor;
-import com.talentofuturo.geoSense_api.mapper.interfaces.ISensorMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Implementation of Sensor mapping operations.
- * Handles conversion between Sensor entities and DTOs.
- */
 @Component
-public class SensorMapper implements ISensorMapper {
+public class SensorMapper {
 
-    /**
-     * {@inheritDoc}
-     */
-    public SensorDTO mapSensor(Sensor sensor) {
-        if (sensor == null) {
-            return null;
-        }
-
-        Long locationId = null;
-        String locationName = null;
-        if (sensor.getLocation() != null) {
-            locationId = sensor.getLocation().getId();
-            locationName = sensor.getLocation().getLocationName();
-        }
-
-        // Usar constructor para crear el DTO inmutable
+    // Convierte una entidad Sensor a un DTO SensorDTO
+    public SensorDTO toDTO(Sensor sensor) {
         return new SensorDTO(
                 sensor.getId(),
                 sensor.getSensorName(),
@@ -39,61 +19,24 @@ public class SensorMapper implements ISensorMapper {
                 sensor.getSensorMeta(),
                 sensor.getSensorApiKey(),
                 sensor.getCompanyApiKey(),
-                locationId,
-                locationName);
+                sensor.getLocation() != null ? sensor.getLocation().getId() : null // Maneja el caso de ubicación nula
+        );
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public Sensor mapDTO(SensorDTO sensorDTO) {
-        if (sensorDTO == null) {
-            return null;
-        }
-
+    // Convierte un DTO SensorDTO a una entidad Sensor
+    public Sensor toEntity(SensorDTO sensorDTO) {
         Sensor sensor = new Sensor();
+        sensor.setId(sensorDTO.getId());
         sensor.setSensorName(sensorDTO.getSensorName());
         sensor.setSensorCategory(sensorDTO.getSensorCategory());
         sensor.setSensorMeta(sensorDTO.getSensorMeta());
+        sensor.setSensorApiKey(sensorDTO.getSensorApiKey());
+        sensor.setCompanyApiKey(sensorDTO.getCompanyApiKey());
+        // La ubicación se asignará en el servicio, no aquí
         return sensor;
     }
 
-    /**
-     * Convierte una entidad Sensor a SensorDTO
-     * 
-     * @param sensor La entidad Sensor
-     * @return SensorDTO con los datos relevantes
-     */
-    public SensorDTO toDTO(Sensor sensor) {
-        if (sensor == null) {
-            return null;
-        }
-
-        Long locationId = null;
-        String locationName = null;
-        if (sensor.getLocation() != null) {
-            locationId = sensor.getLocation().getId();
-            locationName = sensor.getLocation().getLocationName();
-        }
-
-        // Usar constructor para crear el DTO inmutable
-        return new SensorDTO(
-                sensor.getId(),
-                sensor.getSensorName(),
-                sensor.getSensorCategory(),
-                sensor.getSensorMeta(),
-                sensor.getSensorApiKey(),
-                sensor.getCompanyApiKey(),
-                locationId,
-                locationName);
-    }
-
-    /**
-     * Convierte una lista de entidades Sensor a lista de SensorDTO
-     * 
-     * @param sensors Lista de entidades Sensor
-     * @return Lista de SensorDTO
-     */
+    // Convierte una lista de entidades Sensor a una lista de DTOs SensorDTO
     public List<SensorDTO> toDTOList(List<Sensor> sensors) {
         return sensors.stream()
                 .map(this::toDTO)

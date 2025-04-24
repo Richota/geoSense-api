@@ -24,7 +24,7 @@ public interface ILocationService {
      * @param location  The location data to create.
      * @return The created location entity.
      */
-    Location createLocation(Long companyId, Location location);
+    Location createLocationByApiKey(String companyApiKey, Location location);
 
     /**
      * Updates an existing location.

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.*;
@@ -37,8 +38,10 @@ public class Location {
 
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
+    @JsonIgnore // Evita la serialización completa de la compañía
     private Company company;
 
-    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Sensor> sensors = new ArrayList<>();
+    @OneToMany(mappedBy = "location")
+    @JsonIgnore // Evita la serialización de los sensores
+    private List<Sensor> sensors;
 }

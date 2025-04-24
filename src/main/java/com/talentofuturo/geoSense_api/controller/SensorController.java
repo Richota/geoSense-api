@@ -22,10 +22,13 @@ public class SensorController implements ISensorController {
     private final SensorMapper sensorMapper;
 
     @PostMapping("/create")
-    public ResponseEntity<Sensor> createSensor(@RequestParam String companyApiKey, @RequestParam Long locationId,
-            @RequestBody Sensor sensor) {
+    @Override
+    public ResponseEntity<SensorDTO> createSensor(@RequestParam String companyApiKey, @RequestParam Long locationId,
+            @RequestBody SensorDTO sensorDTO) {
+        Sensor sensor = sensorMapper.toEntity(sensorDTO); // Convierte el DTO a entidad
         Sensor createdSensor = sensorService.createSensor(companyApiKey, locationId, sensor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdSensor);
+        SensorDTO createdSensorDTO = sensorMapper.toDTO(createdSensor); // Convierte la entidad creada a DTO
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdSensorDTO);
     }
 
     @GetMapping("/{sensorId}")

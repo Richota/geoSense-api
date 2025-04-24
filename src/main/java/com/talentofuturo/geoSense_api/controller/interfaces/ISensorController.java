@@ -12,10 +12,10 @@ import com.talentofuturo.geoSense_api.dto.SensorDTO;
 import com.talentofuturo.geoSense_api.entity.Sensor;
 
 public interface ISensorController {
-    ResponseEntity<Sensor> createSensor(@RequestParam String companyApiKey, @RequestParam Long locationId,
-            @RequestBody Sensor sensor);
+    ResponseEntity<SensorDTO> createSensor(@RequestParam String companyApiKey, @RequestParam Long locationId,
+            @RequestBody SensorDTO sensorDTO);
 
-    ResponseEntity<Sensor> getSensor(@PathVariable Long sensorId);
+    public ResponseEntity<Sensor> getSensor(@PathVariable Long sensorId);
 
     ResponseEntity<Sensor> updateSensor(@PathVariable Long sensorId, @RequestBody Sensor sensor);
 

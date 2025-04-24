@@ -11,38 +11,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class LocationDTO {
-    /**
-     * Unique identifier for the location
-     */
     private final Long id;
-
-    /**
-     * Name of the location
-     */
     private final String locationName;
-
-    /**
-     * Country where the location is
-     */
     private final String locationCountry;
-
-    /**
-     * City where the location is
-     */
     private final String locationCity;
-
-    /**
-     * Additional metadata about the location
-     */
     private final String locationMeta;
-
-    /**
-     * ID of the company associated with the location
-     */
-    private final Long companyId;
-
-    /**
-     * Name of the company associated with the location
-     */
-    private final String companyName;
+    private final String companyApiKey; // Incluye solo el companyApiKey
 }

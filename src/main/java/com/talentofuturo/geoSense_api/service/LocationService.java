@@ -27,11 +27,15 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public Location createLocation(Long companyId, Location location) {
-        Company company = companyRepository.findById(companyId)
-                .orElseThrow(() -> new ResourceNotFoundException("Company with ID " + companyId + " not found"));
+    public Location createLocationByApiKey(String companyApiKey, Location location) {
+        // Busca la compañía por su API key
+        Company company = companyRepository.findByCompanyApiKey(companyApiKey)
+                .orElseThrow(() -> new ResourceNotFoundException("Company not found with API key: " + companyApiKey));
 
+        // Asocia la compañía a la ubicación
         location.setCompany(company);
+
+        // Guarda la ubicación en la base de datos
         return locationRepository.save(location);
     }
 
