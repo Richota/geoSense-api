@@ -18,40 +18,50 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @SequenceGenerator(name = "sensor_data_seq", sequenceName = "sensor_data_seq", allocationSize = 1)
 public class SensorData {
 
-    /**
-     * Unique identifier for the data reading
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sensor_data_seq")
     private Long id;
 
-    /**
-     * Value recorded by the sensor
-     */
-    @Column(name = "value", nullable = false)
-    @NotNull(message = "Sensor data value cannot be null")
-    private Double value;
+    @Column(name = "apiKey", nullable = false, unique = true)
+    @NotNull(message = "Sensor data api_key cannot be null")
+    private Double apiKey;
 
-    /**
-     * Timestamp when the reading was taken
-     */
-    @Column(name = "timestamp", nullable = false)
-    @NotNull(message = "Timestamp cannot be null")
-    private Instant timestamp;
+    @Column(name = "timestart", nullable = false)
+    private Instant timestart;
 
-    /**
-     * Type or unit of measurement
-     */
-    @Column(name = "measurement_type", nullable = false)
+    @Column(name = "timeend", nullable = false)
+    private Instant timeend;
+
+    @Column(name = "measurement_type1", nullable = false)
     @NotNull(message = "Measurement type cannot be null")
-    private String measurementType;
+    private String measurementType1;
 
-    /**
-     * Sensor that generated this data
-     * Many-to-one relationship with Sensor entity
-     */
+    @Column(name = "measurement_type2", nullable = false)
+    @NotNull(message = "Measurement type cannot be null")
+    private String measurementType2;
+
+    @Column(name = "measurement_type3", nullable = false)
+    @NotNull(message = "Measurement type cannot be null")
+    private String measurementType3;
+
     @ManyToOne
     @JoinColumn(name = "sensor_id", nullable = false)
     @JsonIgnore
     private Sensor sensor;
+
+    public void setMeasurementType(String measurementType) {
+        this.measurementType1 = measurementType;
+    }
+
+    public void setApiKey(Double apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    public void setTimestamp(Instant timestamp) {
+        this.timestart = timestamp;
+    }
+
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
+    }
 }

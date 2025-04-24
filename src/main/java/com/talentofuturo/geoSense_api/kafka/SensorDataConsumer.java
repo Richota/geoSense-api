@@ -82,11 +82,9 @@ public class SensorDataConsumer {
                 Instant timestamp = Instant.ofEpochSecond(reading.getDatetime());
 
                 try {
-                    // Save temperature reading
-                    saveSensorReading(sensor, "temp", reading.getTemp(), timestamp);
 
-                    // Save humidity reading
-                    saveSensorReading(sensor, "humidity", reading.getHumidity(), timestamp);
+                    saveSensorReading(sensor, "temp", reading.getTemp().doubleValue(), timestamp);
+                    saveSensorReading(sensor, "humidity", reading.getHumidity().doubleValue(), timestamp);
 
                     logger.info(
                             "Processed data - Sensor ID: {}, API Key: {}, Temperature: {}°C, Humidity: {}%, Timestamp: {}",
@@ -108,12 +106,12 @@ public class SensorDataConsumer {
      * Helper method to save a sensor reading to the database.
      */
     @Transactional
-    private void saveSensorReading(Sensor sensor, String measurementType, Integer value, Instant timestamp) {
+    private void saveSensorReading(Sensor sensor, String measurementType, Double value, Instant timestamp) {
         if (value != null) {
             SensorData sensorData = new SensorData();
             sensorData.setSensor(sensor);
             sensorData.setMeasurementType(measurementType);
-            sensorData.setValue(value.doubleValue());
+            sensorData.setApiKey(value);
             sensorData.setTimestamp(timestamp);
 
             sensorDataRepository.save(sensorData);

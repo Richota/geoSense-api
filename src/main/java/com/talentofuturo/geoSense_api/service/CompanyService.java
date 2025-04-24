@@ -22,6 +22,12 @@ public class CompanyService implements ICompanyService {
     private final CompanyRepository companyRepository;
     private final AdminRepository adminRepository;
 
+    public CompanyDTO getCompanyById(Long companyId) {
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new ResourceNotFoundException("Company with ID " + companyId + " not found"));
+        return new CompanyDTO(company.getId(), company.getCompanyName(), company.getCompanyApiKey());
+    }
+
     public CompanyDTO createCompany(Long adminId, CompanyDTO companyDTO) {
         Admin admin = adminRepository.findById(adminId)
                 .orElseThrow(() -> new ResourceNotFoundException("Admin with ID " + adminId + " not found"));

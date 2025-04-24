@@ -37,4 +37,5 @@ public interface SensorRepository extends JpaRepository<Sensor, Long> {
      * @return Optional containing the sensor if found, empty otherwise
      */
     Optional<Sensor> findBySensorApiKey(String sensorApiKey);
+
 }

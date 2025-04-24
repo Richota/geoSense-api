@@ -16,4 +16,6 @@ public interface ICompanyService {
     void deleteCompany(Long companyId);
 
     List<CompanyDTO> getAllCompaniesByAdmin(Long adminId);
+
+    CompanyDTO getCompanyById(Long companyId);
 }
